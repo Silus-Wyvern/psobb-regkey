@@ -7,7 +7,7 @@ machine.
 
 ## Status — read this first
 
-**Pre-release.** Tested in running clients — two different client builds, both
+**Version 1.0.0.** Tested in running clients — two different client builds, both
 recognised on the known-build path:
 
 - **report mode** — the build is checked and reported, nothing written;

@@ -1,6 +1,8 @@
 # Changelog
 
-## Unreleased — first public release
+## 1.0.0 — 2026-09-29 — first public release
+
+*Not tagged until the 1.0.0 build has been rebuilt and re-run in report mode.*
 
 First release of psobb-regkey: an ASI plugin that makes a PSOBB Blue Burst client read
 its settings from its own registry key, `HKEY_CURRENT_USER\Software\<vendor>\PSOBB`,
