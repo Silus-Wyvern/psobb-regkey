@@ -1,0 +1,26 @@
+# Visual Studio and command-line build output
+[Rr]elease/
+[Dd]ebug/
+build/
+x86/
+Win32/
+*.dll
+*.asi
+*.exp
+*.lib
+*.pdb
+*.ilk
+*.obj
+*.iobj
+*.ipdb
+
+# VS project cruft
+.vs/
+*.user
+*.suo
+
+# Runtime files from local testing - never commit these
+*.log
+*.log.old
+*.reg
+/psobb_regkey.ini

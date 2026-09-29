@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <BuildType Name="Release" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="psobb_regkey.vcxproj" Id="0c00abc9-0adc-4ef5-90e9-d2a4c64bb6e3" />
+</Solution>
