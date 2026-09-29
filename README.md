@@ -19,12 +19,13 @@ recognised on the known-build path:
   removed from the shared key;
 - **restoring from the backup** — double-clicking the `.reg` put the moved settings back;
 - **run-once** — a relaunch after migrating did not migrate again (the INI `mode` line
-  was reset to `0`).
+  was reset to `0`), **and with the INI made read-only** the registry record alone
+  stopped the repeat;
+- **refusal** — a client whose vendor string had been changed was refused, with nothing
+  redirected, and the unfamiliar-build check correctly declined it too.
 
 **Not yet shown:**
 
-- refusal of an unrecognised build in a running client;
-- the run-once guard with the INI read-only — the registry record acting on its own;
 - the unfamiliar-build path recognising a build whose addresses really differ (no such
   build has been available to test);
 - the move prompt appearing in front of a launcher window.
