@@ -31,6 +31,7 @@
   <ItemGroup>
     <None Include=".gitignore"><Filter>Resource Files</Filter></None>
     <None Include="README.md"><Filter>Resource Files</Filter></None>
+    <None Include="CHANGELOG.md"><Filter>Resource Files</Filter></None>
     <None Include="build.bat"><Filter>Resource Files</Filter></None>
     <None Include="dist\psobb_regkey.ini"><Filter>Resource Files</Filter></None>
     <None Include="docs\ADDRESSES.md"><Filter>Resource Files</Filter></None>

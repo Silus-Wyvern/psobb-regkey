@@ -7,16 +7,29 @@ machine.
 
 ## Status — read this first
 
-**Pre-release (0.1.0).** The addresses and byte patterns it relies on were confirmed
-by static analysis of the client executable (see `docs/ADDRESSES.md`). It builds with
-MSVC. In a running client it recognises the build, applies the redirect, **the game
-reads its settings from the new key**, and copy mode works and runs once. Not yet shown:
+**Pre-release.** Tested in running clients — two different client builds, both
+recognised on the known-build path:
 
-- move mode, the one-time prompt, and restoring from the backup file;
+- **report mode** — the build is checked and reported, nothing written;
+- **the redirect** — the game reads its settings from the new key (a setting changed
+  there is followed in game);
+- **copy** (`mode = 2`) — the settings arrive in the new key, login values not copied;
+- **move, answering No** — completes as a copy, nothing removed;
+- **move, answering Yes** — backup written, then completion recorded, then the settings
+  removed from the shared key;
+- **restoring from the backup** — double-clicking the `.reg` put the moved settings back;
+- **run-once** — a relaunch after migrating did not migrate again (the INI `mode` line
+  was reset to `0`).
+
+**Not yet shown:**
+
 - refusal of an unrecognised build in a running client;
-- that the unfamiliar-build path recognises a build whose addresses really differ.
+- the run-once guard with the INI read-only — the registry record acting on its own;
+- the unfamiliar-build path recognising a build whose addresses really differ (no such
+  build has been available to test);
+- the move prompt appearing in front of a launcher window.
 
-Until those are tested, use it on a copy of your client, not a live install.
+The addresses and byte patterns are in `docs/ADDRESSES.md`.
 
 ## Looks like it isn't working? Read this first
 

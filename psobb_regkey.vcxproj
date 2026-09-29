@@ -69,6 +69,7 @@
   <ItemGroup>
     <None Include=".gitignore" />
     <None Include="README.md" />
+    <None Include="CHANGELOG.md" />
     <None Include="build.bat" />
     <None Include="dist\psobb_regkey.ini" />
     <None Include="docs\ADDRESSES.md" />
