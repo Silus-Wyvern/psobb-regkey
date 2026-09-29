@@ -1,6 +1,7 @@
-// dllmain.cpp - psobb-regkey: lets a PSOBB Blue Burst client keep its
-// settings under its own registry key, HKCU\Software\<vendor>\PSOBB, instead
-// of the shared default HKCU\Software\SonicTeam\PSOBB.
+// dllmain.cpp - psobb-regkey: makes a PSOBB Blue Burst client read its
+// settings from its own registry key, HKCU\Software\<vendor>\PSOBB, instead
+// of the shared default HKCU\Software\SonicTeam\PSOBB. (The game only reads
+// its settings; a launcher or settings tool writes them.)
 //
 // The whole intervention is one guarded 4-byte write: the pointer the game
 // uses as its registry "vendor" name is pointed at a name read from

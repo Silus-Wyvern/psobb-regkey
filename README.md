@@ -1,19 +1,18 @@
 # psobb-regkey
 
 Every stock PSOBB Blue Burst client keeps its settings in the same single place in
-the Windows registry. This ASI plugin lets a client keep its settings in its own
+the Windows registry. This ASI plugin makes a client read its settings from its own
 place instead, so it is not sharing with — or in the way of — anything else on the
 machine.
 
 ## Status — read this first
 
-**Pre-release (0.1.0). This code has not yet been compiled with MSVC or run against a
-client.** The addresses and byte patterns it relies on were confirmed by static
-analysis of the client executable (see `docs/ADDRESSES.md`), and the source was
-compile-checked with another compiler, but nothing here has yet been observed working
-in a running game. Specifically, not yet shown:
+**Pre-release (0.1.0).** The addresses and byte patterns it relies on were confirmed
+by static analysis of the client executable (see `docs/ADDRESSES.md`). It builds with
+MSVC, and in a running client it recognises the build and applies the redirect. Not
+yet shown:
 
-- that the redirect takes effect in a running client;
+- that the game then reads a setting from the new key;
 - the copy and move paths, the one-time prompt, and restoring from the backup file;
 - that the unfamiliar-build path recognises a build whose addresses really differ.
 
@@ -32,7 +31,7 @@ a position to get in the way of other installs on the same machine.
 
 ## What this does
 
-It changes the middle part of that path, so the client uses
+It changes the middle part of that path, so the game reads its settings from
 
 ```
 HKEY_CURRENT_USER\Software\<your name>\PSOBB
@@ -40,6 +39,22 @@ HKEY_CURRENT_USER\Software\<your name>\PSOBB
 
 That is the whole change. It works on an **unmodified** `psobb.exe`: the file on disk
 is never touched, so its hash stays stock.
+
+## For operators: your launcher writes the settings — point it at the same key
+
+**The game never writes its settings. A launcher or settings tool writes them, and the
+game only reads them.** This plugin changes **where the game reads** — nothing else.
+
+So **your launcher or settings tool must write to the same key**:
+
+```
+HKEY_CURRENT_USER\Software\<vendor>\PSOBB
+```
+
+with `<vendor>` spelled exactly as in `psobb_regkey.ini`. If the two disagree, the game
+reads a key your launcher never writes, and players get default settings with no error
+anywhere. After a plain run with the plugin, that key may be empty or missing until
+your launcher (or a migration, below) writes it — that is expected.
 
 ## What this does NOT do
 
@@ -92,9 +107,9 @@ No INI at all → the plugin does nothing and logs `no config, inactive`.
 ## Your existing settings
 
 **Nothing is deleted by default.** With `mode = 0`, your old settings stay exactly
-where they were. The client just stops reading them, so on first launch your key
-bindings, controller layout, graphics and sound are back to defaults, and you sign in
-once.
+where they were. The game just stops reading them, so until your launcher writes the
+new key (or a migration copies them), key bindings, controller layout, graphics and
+sound are at defaults, and players sign in once.
 
 **To bring them over by hand:** in `regedit`, export
 `HKEY_CURRENT_USER\Software\SonicTeam\PSOBB`, open the `.reg` file in Notepad, change
@@ -167,9 +182,11 @@ You'll only be asked this once.
 few players first; tell players before it happens; and run a move yourself on a copy
 of a real install, then double-click the backup and check the settings come back.
 
-**Known limit:** a client that switches to a different product name at start-up (the
-client has a built-in way to do this) keeps its settings under that product name, and
-migration only looks under the product name found at load.
+**Known limit — the alternate product name.** The client has a built-in alternate
+mode that switches its product name from `PSOBB` to `PSOBB_Hangame` during start-up. A
+client running in that mode reads `HKEY_CURRENT_USER\Software\<vendor>\PSOBB_Hangame`
+instead, so a launcher for such a client must write there. Migration only looks under
+the product name found when the plugin loads (`PSOBB`), so it does not cover that mode.
 
 ## How it works
 
