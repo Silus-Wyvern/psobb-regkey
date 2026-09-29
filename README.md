@@ -9,14 +9,29 @@ machine.
 
 **Pre-release (0.1.0).** The addresses and byte patterns it relies on were confirmed
 by static analysis of the client executable (see `docs/ADDRESSES.md`). It builds with
-MSVC, and in a running client it recognises the build and applies the redirect. Not
-yet shown:
+MSVC. In a running client it recognises the build, applies the redirect, **the game
+reads its settings from the new key**, and copy mode works and runs once. Not yet shown:
 
-- that the game then reads a setting from the new key;
-- the copy and move paths, the one-time prompt, and restoring from the backup file;
+- move mode, the one-time prompt, and restoring from the backup file;
+- refusal of an unrecognised build in a running client;
 - that the unfamiliar-build path recognises a build whose addresses really differ.
 
 Until those are tested, use it on a copy of your client, not a live install.
+
+## Looks like it isn't working? Read this first
+
+**The game never creates its settings key — it only reads it.** Settings are written
+by a launcher or settings tool, never by the game. So on a fresh setup you will see
+`redirect applied: settings key is HKCU\Software\<vendor>\PSOBB` in the log, **no such
+key in `regedit`**, and **default settings in game** — and the plugin is working. The
+key must exist first. Either:
+
+1. **your launcher or settings tool writes to `HKCU\Software\<vendor>\PSOBB`**, or
+2. **on the first run, set `mode = 2` (copy)** with `source` set to the key the client
+   used before (`SonicTeam` for a stock client) — the plugin copies the settings across
+   once and the key then exists.
+
+Details, and every log line explained: [`docs/OPERATORS.md`](docs/OPERATORS.md).
 
 ## The shared location
 
@@ -55,6 +70,8 @@ with `<vendor>` spelled exactly as in `psobb_regkey.ini`. If the two disagree, t
 reads a key your launcher never writes, and players get default settings with no error
 anywhere. After a plain run with the plugin, that key may be empty or missing until
 your launcher (or a migration, below) writes it — that is expected.
+
+**Deploying to players? Follow the operator runbook, [`docs/OPERATORS.md`](docs/OPERATORS.md).**
 
 ## What this does NOT do
 
@@ -178,9 +195,9 @@ Move the settings now?
 You'll only be asked this once.
 ```
 
-**If you are an operator planning `mode = 1` for your players:** try `mode = 2` on a
-few players first; tell players before it happens; and run a move yourself on a copy
-of a real install, then double-click the backup and check the settings come back.
+**If you are an operator planning `mode = 1` for your players:** follow
+[`docs/OPERATORS.md`](docs/OPERATORS.md) — rehearse and restore on your own machine,
+dry-run `mode = 2` on a few players, and tell players before it happens.
 
 **Known limit — the alternate product name.** The client has a built-in alternate
 mode that switches its product name from `PSOBB` to `PSOBB_Hangame` during start-up. A

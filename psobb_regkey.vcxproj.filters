@@ -34,5 +34,6 @@
     <None Include="build.bat"><Filter>Resource Files</Filter></None>
     <None Include="dist\psobb_regkey.ini"><Filter>Resource Files</Filter></None>
     <None Include="docs\ADDRESSES.md"><Filter>Resource Files</Filter></None>
+    <None Include="docs\OPERATORS.md"><Filter>Resource Files</Filter></None>
   </ItemGroup>
 </Project>

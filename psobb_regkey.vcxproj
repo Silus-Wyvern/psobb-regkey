@@ -72,6 +72,7 @@
     <None Include="build.bat" />
     <None Include="dist\psobb_regkey.ini" />
     <None Include="docs\ADDRESSES.md" />
+    <None Include="docs\OPERATORS.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
